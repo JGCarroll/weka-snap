@@ -1,4 +1,4 @@
-name: weka
+name: weka-james-carroll
 base: core18
 version: '3.8.4'
 summary: The workbench for machine learning

@@ -2,6 +2,6 @@ This repository contains the build files necessary to create a Snap of the Weka 
 
 The official Weka website can be found at https://www.cs.waikato.ac.nz/ml/weka/
 
-The package produced from this repository can be found at https://snapcraft.io/weka
+The package produced from this repository can be found at https://snapcraft.io/weka-james-carroll
 
-In short, `sudo snap install weka`
+In short, `sudo snap install weka-james-carroll`
