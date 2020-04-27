@@ -1,0 +1,42 @@
+name: weka
+base: core18
+version: '3.8.4'
+summary: The workbench for machine learning
+license: GPL-3.0
+description: |
+  Weka is free machine learning software provided by the University of Waikato, New Zealand.
+  It is a cross platform framework that enables a wide variety of statistical modelling and deep learning.
+  One of the major features of Weka is a high quality GUI to enable generating and evaluating models without having to write a single line of code.
+  This build is unofficially provided to provide a convienient installation format via Snapcraft.
+  Official builds may be downloaded at https://www.cs.waikato.ac.nz/ml/weka/
+grade: stable
+confinement: strict
+
+parts:
+  weka:
+    plugin: maven
+    source: https://github.com/Waikato/weka-3.8.git
+    source-type: git
+    source-commit: 'b532d3adedf398c5b05687b14b84b7cdf8f515c4'
+    source-subdir: weka
+    stage-packages: 
+    - default-jre
+    maven-options: 
+      - -DskipTests=true
+    build-environment:
+      - JAVA_HOME: '/usr/lib/jvm/java-1.11.0-openjdk-amd64/'
+    override-build: |
+      ln -s $SNAPCRAFT_PART_BUILD/dist/ $SNAPCRAFT_PART_BUILD/target
+      snapcraftctl build
+      cp $SNAPCRAFT_PART_BUILD/lib/* -r $SNAPCRAFT_PART_INSTALL/jar/
+    
+apps:
+  weka:
+    command: bin/java weka.gui.GUIChooser
+    environment:
+      CLASSPATH: $SNAP/jar/*
+      JAVA_OPTS: -Xms128m -Xmx2048m
+    extensions: [gnome-3-28]
+    plugs:
+      - network
+      - home
