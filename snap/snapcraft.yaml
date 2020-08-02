@@ -28,9 +28,10 @@ parts:
     build-environment:
       - JAVA_HOME: '/usr/lib/jvm/java-1.11.0-openjdk-amd64/'
     override-build: |
-      ln -s $SNAPCRAFT_PART_BUILD/dist/ $SNAPCRAFT_PART_BUILD/target
+      ln -s $SNAPCRAFT_PART_BUILD/weka/dist $SNAPCRAFT_PART_BUILD/weka/target
       snapcraftctl build
-      cp $SNAPCRAFT_PART_BUILD/lib/* -r $SNAPCRAFT_PART_INSTALL/jar/
+      mkdir -p $SNAPCRAFT_PART_INSTALL/jar
+      cp $SNAPCRAFT_PART_BUILD/weka/lib/* $SNAPCRAFT_PART_INSTALL/jar/
     
 apps:
   weka:
