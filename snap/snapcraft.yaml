@@ -44,7 +44,11 @@ parts:
           cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
       done
     after: [weka]
-    
+
+layout:
+  /usr/share/libdrm:
+    bind: $SNAP/usr/share/libdrm
+
 apps:
   weka:
     command: bin/java weka.gui.GUIChooser
