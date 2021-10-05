@@ -38,10 +38,10 @@ parts:
     plugin: nil
     build-snaps:
       - core18
-      - gnome-3-28-1804
+      - gnome-3-34-1804
     override-prime: |
       set -eux
-      for snap in "core18" "gnome-3-28-1804"; do
+      for snap in "core18" "gnome-3-34-1804"; do
           cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
       done
     after: [weka]
@@ -56,7 +56,7 @@ apps:
     environment:
       CLASSPATH: $SNAP/jar/*
       JAVA_OPTS: -Xms128m -Xmx2048m
-    extensions: [gnome-3-28]
+    extensions: [gnome-3-34]
     plugs:
       - network
       - home
