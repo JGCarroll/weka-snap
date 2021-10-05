@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Weka
 Comment=Machine Learning Toolkit
-Exec=weka-james-carroll.weka
+Exec=weka
 Icon=${SNAP}/meta/gui/weka.png
 Type=Application
 Categories=Science;Development;
