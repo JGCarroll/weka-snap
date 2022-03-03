@@ -1,6 +1,6 @@
 name: weka
 base: core18
-version: '3.8.5'
+version: '3.8.6'
 summary: The workbench for machine learning
 license: GPL-3.0
 description: |
@@ -20,7 +20,7 @@ parts:
     plugin: maven
     source: https://github.com/Waikato/weka-3.8.git
     source-type: git
-    source-commit: 8ace425af7755d9f837329e3fc80ff72409b41c4
+    source-commit: d49c085b51d93d5e26ca929fa763b3f684bf91eb
     source-subdir: weka
     stage-packages: 
     - default-jre
