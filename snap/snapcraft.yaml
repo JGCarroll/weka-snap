@@ -33,6 +33,9 @@ parts:
       snapcraftctl build
       mkdir -p $SNAPCRAFT_PART_INSTALL/jar
       cp $SNAPCRAFT_PART_BUILD/weka/lib/* $SNAPCRAFT_PART_INSTALL/jar/
+    override-prime: |
+      snapcraftctl prime
+      rm usr/lib/jvm/java-11-openjdk-amd64/lib/security/blacklisted.certs
   
   cleanup:
     plugin: nil
