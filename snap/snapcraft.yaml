@@ -1,5 +1,5 @@
 name: weka
-base: core18
+base: core22
 version: '3.8.6'
 summary: The workbench for machine learning
 license: GPL-3.0
@@ -22,44 +22,26 @@ parts:
     source-type: git
     source-commit: d49c085b51d93d5e26ca929fa763b3f684bf91eb
     source-subdir: weka
-    stage-packages: 
-    - default-jre
-    maven-options: 
+    build-packages:
+      - maven
+      - default-jdk
+    stage-packages:
+      - default-jre
+    maven-parameters:
       - -DskipTests=true
     build-environment:
       - JAVA_HOME: '/usr/lib/jvm/java-1.11.0-openjdk-amd64/'
-    override-build: |
-      ln -s $SNAPCRAFT_PART_BUILD/weka/dist $SNAPCRAFT_PART_BUILD/weka/target
-      snapcraftctl build
-      mkdir -p $SNAPCRAFT_PART_INSTALL/jar
-      cp $SNAPCRAFT_PART_BUILD/weka/lib/* $SNAPCRAFT_PART_INSTALL/jar/
     override-prime: |
-      snapcraftctl prime
+      craftctl default
       rm usr/lib/jvm/java-11-openjdk-amd64/lib/security/blacklisted.certs
-  
-  cleanup:
-    plugin: nil
-    build-snaps:
-      - core18
-      - gnome-3-34-1804
-    override-prime: |
-      set -eux
-      for snap in "core18" "gnome-3-34-1804"; do
-          cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
-      done
-    after: [weka]
-
-layout:
-  /usr/share/libdrm:
-    bind: $SNAP/usr/share/libdrm
 
 apps:
   weka:
     command: bin/java weka.gui.GUIChooser
     environment:
-      CLASSPATH: $SNAP/jar/*
       JAVA_OPTS: -Xms128m -Xmx2048m
-    extensions: [gnome-3-34]
+      CLASSPATH: $SNAP/jar/*
+    extensions: [gnome]
     plugs:
       - network
       - home
