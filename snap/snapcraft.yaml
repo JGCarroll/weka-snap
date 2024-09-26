@@ -1,5 +1,5 @@
 name: weka
-base: core22
+base: core24
 version: '3.8.6'
 summary: The workbench for machine learning
 license: GPL-3.0
@@ -11,8 +11,6 @@ description: |
   Official builds may be downloaded at https://www.cs.waikato.ac.nz/ml/weka/
 grade: stable
 confinement: strict
-architectures:
-  - build-on: amd64
 compression: lzo
 
 parts:
@@ -22,24 +20,21 @@ parts:
     source-type: git
     source-commit: d49c085b51d93d5e26ca929fa763b3f684bf91eb
     source-subdir: weka
-    build-packages:
-      - maven
-      - default-jdk
-    stage-packages:
-      - default-jre
+    build-environment:
+      - JAVA_HOME: '/usr/lib/jvm/java-1.17.0-openjdk-amd64/'
     maven-parameters:
       - -DskipTests=true
-    build-environment:
-      - JAVA_HOME: '/usr/lib/jvm/java-1.11.0-openjdk-amd64/'
-    override-prime: |
-      craftctl default
-      rm usr/lib/jvm/java-11-openjdk-amd64/lib/security/blacklisted.certs
+    build-packages:
+      - maven
+      - openjdk-17-jdk
+    stage-packages:
+      - openjdk-17-jre
 
 apps:
   weka:
     command: bin/java weka.gui.GUIChooser
     environment:
-      JAVA_OPTS: -Xms128m -Xmx2048m
+      JAVA_OPTS: -Xms512m -Xmx4098m -Djava.security.manager=allow
       CLASSPATH: $SNAP/jar/*
     extensions: [gnome]
     plugs:
