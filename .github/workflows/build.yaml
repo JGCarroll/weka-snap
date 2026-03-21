@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v6
     - uses: snapcore/action-build@v1
       id: build
-    - uses: actions/upload-artifact@v6
+    - uses: actions/upload-artifact@v7
       with:
-        name: '${{ github.sha }}.snap'
         path: ${{ steps.build.outputs.snap}}
+        archive: false
