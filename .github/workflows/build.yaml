@@ -1,4 +1,4 @@
-name: Build the snap for X86_64 & ARM64
+name: Build the snap
 
 on:
   push:
@@ -7,11 +7,7 @@ on:
 
 jobs:
   Build:
-    strategy:
-      fail-fast: false
-      matrix:
-        runner: [ubuntu-latest, ubuntu-26.04-arm]
-    runs-on: ${{ matrix.runner }}
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
     - uses: canonical/action-build@v1
