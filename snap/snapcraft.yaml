@@ -1,6 +1,6 @@
 name: weka
-base: core24
-version: '3.8.6'
+base: core26
+version: '3.8.7'
 summary: The workbench for machine learning
 license: GPL-3.0
 description: |
@@ -16,25 +16,26 @@ compression: lzo
 parts:
   weka:
     plugin: maven
-    source: https://github.com/Waikato/weka-3.8.git
+    source: https://git.cms.waikato.ac.nz/weka/weka.git
     source-type: git
-    source-commit: d49c085b51d93d5e26ca929fa763b3f684bf91eb
+    source-commit: 7f3f591dc178d3d057a3cc3c53f18f51c28d6fed # 3.8.7
     source-subdir: weka
     build-environment:
-      - JAVA_HOME: '/usr/lib/jvm/java-1.17.0-openjdk-amd64/'
+      - JAVA_HOME: '/usr/lib/jvm/java-1.25.0-openjdk-amd64/'
     maven-parameters:
       - -DskipTests=true
+      - -Dgpg.skip=true
     build-packages:
       - maven
-      - openjdk-17-jdk
+      - openjdk-25-jdk
     stage-packages:
-      - openjdk-17-jre
+      - openjdk-25-jre
 
 apps:
   weka:
     command: bin/java weka.gui.GUIChooser
     environment:
-      JAVA_OPTS: -Xms512m -Xmx4098m -Djava.security.manager=allow
+      JAVA_OPTS: -Xms512m -Xmx8192m --enable-native-access=ALL-UNNAMED --enable-native-access=javafx.graphics
       CLASSPATH: $SNAP/jar/*
     extensions: [gnome]
     plugs:
